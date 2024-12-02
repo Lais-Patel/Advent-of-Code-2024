@@ -30,8 +30,11 @@ for a,b in enumerate(undata):
         j.reverse()
     unsafe[str(b)] = False
     d = b[:]
-    for c in range(len(b)-1):
+    for c in range(len(b)):
         d.pop(c)
+        #print(d,c)
+        if d[0] > d[-1]:
+            d.reverse()
         passes = 0
         for z in range(len(d)-1):
             if 0 < d[z+1] - d[z] < 4:
@@ -44,9 +47,9 @@ newsafe_count = 0
 for q in unsafe:
     if unsafe[q]:
         newsafe_count += 1
-        print(q,unsafe[q])
+        #print(q,unsafe[q])
 for g in undata:
-    print(g)
+    pass#print(g)
 print(newsafe_count)
 print(safe_count)
 print(safe_count+newsafe_count)
