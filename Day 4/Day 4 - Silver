@@ -13,47 +13,51 @@ with open("input_data.txt") as f:
 def find_xmas(x,y):
     count = 0
     if xmas[x][y] == word[0]:
-        for d in range(0,9):
+        for d in range(8):
             match(d):
-                case 0:
-                    xx = 1
-                    yy = 0
-                case 1:
-                    xx = -1
-                    yy = 0
-                case 2:
+                case 0: # Forwards
+                    yy = 1
                     xx = 0
-                    yy = 1
-                case 3:
+                case 1: # Backwards
+                    yy = -1
                     xx = 0
-                    yy = -1
-                case 4:
-                    xx = 1
-                    yy = 1
-                case 5:
-                    xx = 1
-                    yy = -1
-                case 6:
+                case 2: # Down
+                    yy = 0
+                    xx = 1 
+                case 3: # Up
+                    yy = 0
                     xx = -1
+                case 4: # Down Forwards
                     yy = 1
-                case 7:
+                    xx = 1
+                case 5: # Up Forwards
+                    yy = 1
                     xx = -1
+                case 6: # Down Backwards
                     yy = -1
+                    xx = 1
+                case 7: # Up Backwards
+                    yy = -1
+                    xx = -1
                 case _:
-                    xx = 0
                     yy = 0
+                    xx = 0
             try:
                 check = 0
                 for c in range(1,4):
-                    if xmas[x+(c*xx)][y+(c*yy)] == word[c]:
-                        check += 1
-                        if check == 3:
-                            count += 1
+                    if x+(c*xx) >= 0 and y+(c*yy) >= 0:
+                        if xmas[x+(c*xx)][y+(c*yy)] == word[c]:
+                            check += 1
+                            if check == 3:
+                                count += 1
+                                print(f"({x+1},{y+1}) d = {d}")
+                        
             except:
-                pass
+                continue
+
     return count
 
 for i in range(len(xmas)):
     for j in range(len(xmas)):
         total += find_xmas(i,j)
-print(total)
+print("Total:",total)
